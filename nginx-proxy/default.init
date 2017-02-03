@@ -5,7 +5,7 @@ upstream sub {
 server {
     listen 80;
     server_name dominioservice;
-    access_log /var/log/nginx/.log combined;
+    access_log /dev/stdout combined;
     location /.well-known {
             alias /usr/share/nginx/html/dominioservice/.well-known;
     }

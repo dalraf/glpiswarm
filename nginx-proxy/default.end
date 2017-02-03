@@ -19,8 +19,6 @@ server {
     ssl_stapling on;
     ssl_stapling_verify on;
 
-    access_log /var/log/nginx/.log combined;
-
     # maintain the .well-known directory alias for renewals
 
     location /.well-known {

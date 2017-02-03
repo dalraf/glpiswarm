@@ -13,10 +13,10 @@ then
     cat /etc/nginx/conf.d/default.conf
     nginx -s reload
     certbot certonly -n --webroot --agree-tos --email $emailregister -w /usr/share/nginx/html/$dominioservice -d $dominioservice -d $dominioservice
-    echo "Criando aquivo de final do ngnix"
-    sed  "s/addressservice/$addressservice/g;s/portservice/$portservice/g;s/dominioservice/$dominioservice/g" /default.end > /etc/nginx/conf.d/default.conf 
-    cat /etc/nginx/conf.d/default.conf
-    nginx -s reload
+ #   echo "Criando aquivo de final do ngnix"
+ #   sed  "s/addressservice/$addressservice/g;s/portservice/$portservice/g;s/dominioservice/$dominioservice/g" /default.end > /etc/nginx/conf.d/default.conf 
+ #   cat /etc/nginx/conf.d/default.conf
+
 fi
 
 while true;
