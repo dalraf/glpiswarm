@@ -3,7 +3,7 @@ upstream sub {
 }
 
 server {
-    listen 8080;
+    listen 80;
     server_name dominioservice;
     access_log /var/log/nginx/.log combined;
     location /.well-known {
