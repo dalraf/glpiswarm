@@ -2,8 +2,7 @@
 nginx -g "daemon off;" &
 pidof nginx
 
-
-if ! [ -d /etc/letsencrypt/live/$dominioservice ] || ! $ssl >/dev/null 2>&1
+if ! [ -d /etc/letsencrypt/live/$dominioservice ] &&  $ssl >/dev/null 2>&1
 then
 
     ! [ -d /usr/share/nginx/html/$dominioservice ] && mkdir /usr/share/nginx/html/$dominioservice
