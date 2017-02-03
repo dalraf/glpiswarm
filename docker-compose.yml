@@ -9,6 +9,7 @@ services:
       volumes:
         - glpisourcestable:/var/www/html/glpi
         - glpidatalogstable:/var/www/html/glpi/files
+        - certs:/etc/letsencrypt/live
       restart: unless-stopped
     mysqlstable:
       image: mariadb
@@ -62,4 +63,9 @@ volumes:
       type: nfs
       o: addr=${NFSADDRESS},rw
       device: ${DATABASEINIT}
-
+  certs:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=${NFSADDRESS},rw
+      device: ${CERTSLOCATION}
