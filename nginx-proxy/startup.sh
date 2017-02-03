@@ -2,12 +2,12 @@
 nginx -g "daemon off;" &
 pidof nginx
 
-if ! [ -d /etc/letsencrypt/live/$dominioservice ] &&  $ssl >/dev/null 2>&1
-then
+! [ -d /usr/share/nginx/html/$dominioservice ] && mkdir /usr/share/nginx/html/$dominioservice
+! [ -d /usr/share/nginx/html/$dominioservice/.well-known ] && mkdir /usr/share/nginx/html/$dominioservice/.well-known
 
-    ! [ -d /usr/share/nginx/html/$dominioservice ] && mkdir /usr/share/nginx/html/$dominioservice
-    ! [ -d /usr/share/nginx/html/$dominioservice/.well-known ] && mkdir /usr/share/nginx/html/$dominioservice/.well-known
-    echo "Criando aquivo de inicial do ngnix"
+if ! [ -d /etc/letsencrypt/live/$dominioservice ] &&  $ssl >/dev/null 2>&1
+then 
+    echo "Criando chaves letsencrypt"
     sed  "s/addressservice/$addressservice/g;s/portservice/$portservice/g;s/dominioservice/$dominioservice/g" /default.init > /etc/nginx/conf.d/default.conf 
     cat /etc/nginx/conf.d/default.conf
     nginx -s reload
