@@ -3,7 +3,7 @@ services:
     glpistable:
       build: ./php
       ports:
-        - 8080:8080
+        - 8080:80
       links:
         - mysqlstable:db
       volumes:
