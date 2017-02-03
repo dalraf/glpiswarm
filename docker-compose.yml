@@ -38,6 +38,7 @@ services:
         - addressservice=${addressservice}
         - portservice=${portservice}
         - emailregister=${emailregister}
+        - ssl=${ssl}
 volumes:
   glpisourcestable:
     driver: local
