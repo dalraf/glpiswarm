@@ -1,0 +1,65 @@
+version: '2'
+services:
+    glpistable:
+      build: ./php
+      ports:
+        - 80:80
+        - 443:443
+      links:
+        - mysqlstable:db
+      volumes:
+        - glpisourcestable:/var/www/html/glpi
+        - glpidatalogstable:/var/www/html/glpi/files
+      restart: unless-stopped
+    mysqlstable:
+      image: mariadb
+      environment:
+        - MYSQL_ROOT_PASSWORD=${MYSQLPASSWORD}
+        - MYSQL_DATABASE=${MYSQLDATABASE}
+      volumes:
+        - mysqldatastable:/var/lib/mysql
+        - databaseinitstable:/docker-entrypoint-initdb.d
+      ports:
+        - 3306:3306
+      restart: unless-stopped
+    logrotate:
+      build: ./logrotate
+      volumes:
+        - glpidatalogstable:/logs
+      restart: unless-stopped
+    nginx-proxy:
+      build: ./nginx-proxy
+      restart: unless-stopped
+      ports:
+        - 8080:8080
+      environment:
+        - dominioservice=${dominioservice}
+        - addressservice=${addressservice}
+        - portservice=${portservice}
+        - emailregister=${emailregister}
+volumes:
+  glpisourcestable:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=${NFSADDRESS},rw
+      device: ${GLPISOURCESTABLE}
+  glpidatalogstable:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=${NFSADDRESS},rw
+      device: ${GLPIDATALOGSTABLE}
+  mysqldatastable:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=${NFSADDRESS},rw
+      device: ${MYSQLDATASTABLE}
+  databaseinitstable:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=${NFSADDRESS},rw
+      device: ${DATABASEINIT}
+
