@@ -3,8 +3,7 @@ services:
     glpistable:
       build: ./php
       ports:
-        - 80:80
-        - 443:443
+        - 8080:80
       links:
         - mysqlstable:db
       volumes:
@@ -31,7 +30,8 @@ services:
       build: ./nginx-proxy
       restart: unless-stopped
       ports:
-        - 8080:8080
+        - 80:80
+        - 443:443
       environment:
         - dominioservice=${dominioservice}
         - addressservice=${addressservice}
